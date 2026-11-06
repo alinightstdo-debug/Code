@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="th" data-bs-theme="light">
+<head>
+    <title>Arcana Flora | ภาษาดอกไม้แห่งไพ่ Major Arcana</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+
+    <!-- ฟอนต์: Prompt (ภาษาไทย/เนื้อหา) + Cormorant Garamond (หัวข้อภาษาอังกฤษ/เลขโรมัน) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Prompt:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- ===== [สัญลักษณ์ดอกไม้] วาดครั้งเดียว เรียกใช้ซ้ำได้ด้วย <use href="#bloom"> สีเปลี่ยนตาม color ของ CSS ===== -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <symbol id="bloom" viewBox="-50 -50 100 100">
+            <g fill="currentColor" opacity=".9">
+                <ellipse rx="9" ry="22" cy="-22"/>
+                <ellipse rx="9" ry="22" cy="-22" transform="rotate(45)"/>
+                <ellipse rx="9" ry="22" cy="-22" transform="rotate(90)"/>
+                <ellipse rx="9" ry="22" cy="-22" transform="rotate(135)"/>
+                <ellipse rx="9" ry="22" cy="-22" transform="rotate(180)"/>
+                <ellipse rx="9" ry="22" cy="-22" transform="rotate(225)"/>
+                <ellipse rx="9" ry="22" cy="-22" transform="rotate(270)"/>
+                <ellipse rx="9" ry="22" cy="-22" transform="rotate(315)"/>
+            </g>
+            <circle r="9" fill="#c8a24a"/>
+        </symbol>
+    </svg>
+    <header>
+        <!-- ===== แถบเมนู (เหมือนกันทุกหน้า แก้ที่เดียวแล้วคัดลอกไปทุกไฟล์) ===== -->
+        <nav class="navbar navbar-expand-lg navbar-dark sticky-top navbar-arcana">
+            <div class="container">
+                <a class="navbar-brand brand-text" href="index.html">Arcana Flora</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="เปิดเมนู">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav gap-lg-3"><li class="nav-item"><a class="nav-link active" href="index.html" aria-current="page">หน้าแรก</a></li><li class="nav-item"><a class="nav-link" href="story.html">เรื่องราว</a></li><li class="nav-item"><a class="nav-link" href="collection.html">คอลเลกชัน</a></li><li class="nav-item"><a class="nav-link" href="about.html">เกี่ยวกับ</a></li></ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <!-- ===== [2] ส่วนหน้าแรก (Hero) ===== -->
+        <section id="home" class="hero min-vh-100 d-flex align-items-center text-white">
+            <div class="container">
+                <div class="row align-items-center g-5">
+
+                    <!-- ข้อความหลัก -->
+                    <div class="col-lg-7 text-center text-lg-start">
+                        <h1 class="display-3 mb-3 font-display">
+                            ไพ่ดอกไม้<br>ของสะสมของฉัน
+                        </h1>
+                        <p class="lead mb-4 hero-sub">
+                            เก็บไพ่ทาโรต์ Major Arcana ไว้ทีละใบ แล้วจับคู่กับดอกไม้ที่ใจบอกว่า "ใช่"
+                        </p>
+                        <a href="#story" class="btn btn-gold btn-lg px-4 rounded-pill">ไปดูเรื่องราวกัน</a>
+                    </div>
+
+                    <!-- ไพ่ The Fool ใบจริง (รูป: images/the-fool-card.png) -->
+                    <div class="col-lg-5 d-flex justify-content-center">
+                        <a href="detail.html?id=fool" aria-label="ดูรายละเอียดไพ่ The Fool">
+                            <img src="images/The fool.png" class="hero-card-img" alt="ไพ่ The Fool">
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== ส่วนไฮไลต์ 3 ใบ (กดการ์ดเพื่อไปหน้ารายละเอียด) ===== -->
+        <section class="py-5 section-paper">
+            <div class="container py-5">
+                <div class="text-center mb-5">
+                    <h2 class="display-5 font-display">เรื่องเล่าของไพ่ที่ชอบ</h2>
+                    <p class="text-muted">3 ใบที่ชอบที่สุด เดี๋ยวพาไปดูใบอื่นต่อนะ</p>
+                </div>
+                <div class="row g-4 justify-content-center">
+                    <div class="col-md-4">
+                        <a class="card h-100 border-0 shadow-sm card-hover text-decoration-none" href="detail.html?id=fool">
+                            <div class="card-art art-fool" style="--img:url('images/Fool.png')">
+                                <span class="art-num font-display">0</span>
+                            </div>
+                            <div class="card-body text-center">
+                                <h5 class="font-display fs-4 text-dark">The Fool · เดซี่</h5>
+                                <p class="text-muted small mb-0">ความบริสุทธิ์ ก้าวแรกที่ไม่กลัวอะไร</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-md-4">
+                        <a class="card h-100 border-0 shadow-sm card-hover text-decoration-none" href="detail.html?id=empress">
+                            <div class="card-art art-empress" style="--img:url('images/Empress.png')">
+                                <span class="art-num font-display">III</span>
+                            </div>
+                            <div class="card-body text-center">
+                                <h5 class="font-display fs-4 text-dark">The Empress · กุหลาบ</h5>
+                                <p class="text-muted small mb-0">ความรัก ความอุดมสมบูรณ์ และการดูแล</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-md-4">
+                        <a class="card h-100 border-0 shadow-sm card-hover text-decoration-none" href="detail.html?id=star">
+                            <div class="card-art art-star" style="--img:url('images/Star.png')">
+                                <span class="art-num font-display">XVII</span>
+                            </div>
+                            <div class="card-body text-center">
+                                <h5 class="font-display fs-4 text-dark">The Star · บัวหลวง</h5>
+                                <p class="text-muted small mb-0">ความหวัง การเยียวยา และการเกิดใหม่</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="text-center mt-5">
+                    <a href="collection.html" class="btn btn-outline-dark btn-lg rounded-pill px-5 btn-hover">ดูไพ่ใบอื่น ๆ</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- ===== [6] ส่วนท้ายเว็บ ===== -->
+    <footer class="footer-arcana text-white pt-5 pb-4">
+        <div class="container">
+            <div class="row g-4">
+
+                <div class="col-lg-5 col-md-12">
+                    <h4 class="font-display mb-3">Arcana Flora</h4>
+                    <p class="hero-sub small pe-lg-5">
+                        รวบรวมความหมายของไพ่ทาโรต์และภาษาดอกไม้ไว้ด้วยกัน
+                        เพราะทั้งสองอย่างเล่าเรื่องของชีวิตด้วยสัญลักษณ์
+                    </p>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <h6 class="mb-3">เมนู</h6>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2"><a href="index.html" class="hero-sub text-decoration-none footer-link">หน้าแรก</a></li>
+                        <li class="mb-2"><a href="story.html" class="hero-sub text-decoration-none footer-link">เรื่องราว</a></li>
+                        <li class="mb-2"><a href="collection.html" class="hero-sub text-decoration-none footer-link">คอลเลกชัน</a></li>
+                        <li class="mb-2"><a href="about.html" class="hero-sub text-decoration-none footer-link">เกี่ยวกับ</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <h6 class="mb-3">ติดต่อ</h6>
+                    <p class="hero-sub small mb-3">ติดตามผลงานและพูดคุยกันได้ที่ช่องทางด้านล่าง</p>
+                    <div class="d-flex gap-3">
+                        <!-- เปลี่ยนลิงก์เป็นเพจของตัวเอง -->
+                        <a href="https://www.facebook.com" target="_blank" rel="noopener" class="btn btn-outline-light btn-sm rounded-pill px-4 social-btn">Facebook</a>
+                        <a href="https://www.instagram.com" target="_blank" rel="noopener" class="btn btn-outline-light btn-sm rounded-pill px-4 social-btn">Instagram</a>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="border-secondary mt-5 mb-4">
+            <div class="text-center hero-sub small">&copy; 2026 Arcana Flora · ของสะสมส่วนตัวของ Mustang</div>
+        </div>
+    </footer>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+</html>

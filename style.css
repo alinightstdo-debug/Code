@@ -1,0 +1,357 @@
+/* =====================================================
+   [1] ตัวแปรสี — แก้ที่นี่ที่เดียว สีทั้งเว็บเปลี่ยนตาม
+   ===================================================== */
+:root {
+  --night:      #1e1b2e;  /* พื้นหลังโทนเข้ม (ม่วงเข้มยามค่ำ) */
+  --night-soft: #2b2742;  /* การ์ด/กล่องบนพื้นเข้ม */
+  --gold:       #d4a24c;  /* สีทอง: ปุ่ม เลขโรมัน เส้นขอบ */
+  --rose:       #a3203d;  /* สีเน้นตอนเมาส์ชี้ (สีเดิมของคุณ) */
+  --paper:      #faf8f5;  /* พื้นหลังโทนสว่าง (ม่วงอ่อนมาก) */
+  --ink-soft:   rgba(239, 232, 245, .72); /* ตัวอักษรรองบนพื้นเข้ม */
+}
+
+/* =====================================================
+   [2] ฟอนต์และพื้นฐาน
+   ===================================================== */
+body { font-family: 'Prompt', sans-serif; background: var(--paper); }
+html { scroll-behavior: smooth; }
+.font-display { font-family: 'Cormorant Garamond', 'Prompt', serif; font-weight: 700; }
+.hero-sub { color: var(--ink-soft); }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+/* =====================================================
+   [3] แถบเมนู
+   ===================================================== */
+.navbar-arcana { background: var(--night); border-bottom: 1px solid rgba(212,162,76,.35); }
+.brand-text { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.6rem; color: var(--gold) !important; }
+.navbar-arcana .nav-link { transition: color .4s ease; }
+.navbar-arcana .nav-link:hover { color: var(--gold) !important; } /* สีเมนูตอนเมาส์ชี้ */
+
+/* =====================================================
+   [4] ส่วนหน้าแรก (Hero)
+   ===================================================== */
+.hero {
+  background-color: var(--night);
+  /* ถ้ามีภาพพื้นหลังให้ใส่ url('images/banner.jpg') เพิ่มต่อท้ายได้ */
+  background-image: radial-gradient(ellipse at 75% 40%, rgba(163,32,61,.35), transparent 60%),
+                    radial-gradient(ellipse at 15% 90%, rgba(212,162,76,.12), transparent 55%);
+  padding-top: 4rem;
+}
+.btn-gold { background: var(--gold); border-color: var(--gold); color: var(--night); font-weight: 600; transition: all .3s ease; }
+.btn-gold:hover { background: transparent; color: var(--gold); border-color: var(--gold); }
+
+/* การ์ดไพ่ใหญ่ (ขนาด/สัดส่วนปรับได้ที่ width และ aspect-ratio) */
+.tarot-card {
+  width: min(280px, 80%);
+  aspect-ratio: 2 / 3.4;
+  border: 2px solid var(--gold);
+  border-radius: 14px;
+  outline: 1px solid rgba(212,162,76,.5); outline-offset: -10px; /* กรอบซ้อนในแบบไพ่จริง */
+  background: linear-gradient(170deg, #2a1d38, #1b1325);
+  color: var(--gold);
+  display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+  padding: 1.6rem 1rem; text-align: center;
+  box-shadow: 0 1.5rem 3rem rgba(0,0,0,.5);
+  transform: rotate(3deg);
+}
+.tarot-num { font-size: 2rem; line-height: 1; }
+.tarot-bloom { width: 78%; height: auto; aspect-ratio: 1; color: #f3eefa; }
+.tarot-name { font-size: 1.7rem; line-height: 1; }
+.tarot-flower { font-size: .8rem; color: var(--ink-soft); }
+
+/* =====================================================
+   [5] พื้นหลังแต่ละส่วน (สลับสว่าง/เข้ม)
+   ===================================================== */
+.section-paper { background: var(--paper); }
+.section-night { background: var(--night); color: #efe8f5; }
+
+/* =====================================================
+   [6] การ์ดไพ่ในส่วนเรื่องราว
+   ===================================================== */
+.card-hover { transition: transform .4s cubic-bezier(.175,.885,.32,1.275), box-shadow .4s ease; overflow: hidden; }
+.card-hover:hover { transform: translateY(-12px); box-shadow: 0 1rem 3rem rgba(30,27,46,.25) !important; }
+
+/* พื้นที่ภาพของการ์ด: ใส่ภาพผ่าน --img ใน HTML ถ้าไม่มีภาพจะเห็นสีไล่เฉด + ดอกไม้ SVG แทน */
+.card-art {
+  aspect-ratio: 3 / 4;
+  background-image: var(--img, none), var(--grad);
+  background-size: cover; background-position: center;
+  position: relative; display: flex; align-items: center; justify-content: center;
+}
+.art-num { position: absolute; top: .8rem; left: 1rem; font-size: 1.8rem; color: rgba(255,255,255,.9); }
+.art-bloom { width: 55%; aspect-ratio: 1; height: auto; color: rgba(255,255,255,.85); }
+
+/* สีประจำแต่ละใบ — เปลี่ยนเฉดตามดอกไม้ */
+.art-fool    { --grad: linear-gradient(160deg, #f5c542, #3f8fd2); }  /* เดซี่: เหลือง-ฟ้า */
+.art-empress { --grad: linear-gradient(160deg, #e8536f, #7a1030); }  /* กุหลาบ: ชมพู-แดงเข้ม */
+.art-star    { --grad: linear-gradient(160deg, #5b6cf0, #1a1d5c); }  /* บัว: คราม-ม่วงเข้ม */
+
+.btn-hover { transition: all .3s ease; }
+.btn-hover:hover { transform: scale(1.05); background-color: var(--night); color: #fff; }
+
+/* =====================================================
+   [7] ส่วนคอลเลกชัน (รายการไพ่+ดอกไม้)
+   ===================================================== */
+.pair {
+  display: flex; gap: 1rem; align-items: flex-start;
+  padding: 1.2rem 1.3rem;
+  background: var(--night-soft);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 10px 10px 0;
+}
+.pair h5 { color: #fff; font-size: 1.3rem; }
+.pair p { color: var(--ink-soft); }
+.pair-num { color: var(--gold); font-size: 1.8rem; min-width: 3.2rem; line-height: 1.1; }
+
+/* =====================================================
+   [8] ส่วนท้ายเว็บ
+   ===================================================== */
+.footer-arcana { background: var(--night); border-top: 1px solid rgba(212,162,76,.35); }
+.footer-link { transition: color .3s ease; }
+.footer-link:hover { color: var(--gold) !important; }
+.social-btn { transition: all .3s ease; }
+.social-btn:hover { transform: translateY(-3px); background-color: var(--rose); border-color: var(--rose); color: #fff; }
+
+/* =====================================================
+   [9] ลดการเคลื่อนไหวสำหรับผู้ที่ตั้งค่าไว้ในระบบ
+   ===================================================== */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .card-hover, .btn-hover, .social-btn { transition: none; }
+}
+
+/* =====================================================
+   [10] ส่วนที่เพิ่มสำหรับหลายหน้า
+   ===================================================== */
+/* หัวหน้าของหน้าย่อย (story / collection / detail / about) */
+.page-hero {
+  background-color: var(--night);
+  background-image: radial-gradient(ellipse at 80% 0%, rgba(163,32,61,.3), transparent 60%);
+  padding: 4.5rem 0 3.5rem;
+}
+/* การ์ดที่เป็นลิงก์ ไม่ให้ตัวหนังสือเป็นสีลิงก์ */
+a.card { color: inherit; }
+
+/* =====================================================
+   [11] ไพ่เลื่อนอัตโนมัติ + พลิกดูความหมาย
+   ===================================================== */
+.marquee-section { padding: 3rem 0 2.5rem; overflow: hidden; }
+.marquee {
+  overflow: hidden;
+  /* ขอบซ้าย-ขวาจางหาย */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee-track {
+  display: flex; width: max-content;
+  animation: marquee-move 60s linear infinite;   /* ความเร็ว: เลขมาก = ช้า */
+}
+.marquee:hover .marquee-track { animation-play-state: paused; } /* ชี้แล้วหยุดเลื่อน */
+.marquee-group { display: flex; gap: 1.2rem; padding-right: 1.2rem; }
+@keyframes marquee-move { to { transform: translateX(-50%); } }
+
+.flip-card { width: 190px; aspect-ratio: 2 / 3.1; perspective: 900px; flex: none; }
+.flip-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .7s cubic-bezier(.4,.2,.2,1); }
+.flip-face { position: absolute; inset: 0; border-radius: 12px; backface-visibility: hidden; -webkit-backface-visibility: hidden; border: 2px solid var(--gold); overflow: hidden; }
+.flip-front { aspect-ratio: auto; }
+.flip-front .art-num { color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,.4); }
+.flip-front .art-bloom { width: 62%; }
+.flip-title { position: absolute; left: 0; right: 0; bottom: 0; padding: 1.4rem .5rem .7rem; text-align: center; color: #fff; font-size: 1.25rem; line-height: 1.1; background: linear-gradient(transparent, rgba(30,27,46,.85)); }
+.flip-title small { display: block; font-family: 'Prompt', sans-serif; font-weight: 300; font-size: .75rem; color: var(--gold); margin-top: .2rem; }
+.flip-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(170deg, var(--night-soft), var(--night));
+  color: #efe8f5; text-align: center;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .4rem; padding: 1rem .9rem;
+  outline: 1px solid rgba(212,162,76,.5); outline-offset: -8px;
+}
+.flip-num { color: var(--gold); font-size: 1.8rem; line-height: 1; }
+.flip-back h5 { font-size: 1.2rem; margin: 0; }
+.flip-flower { color: var(--gold); margin: 0; font-size: .85rem; }
+.flip-back .small { color: var(--ink-soft); margin: .3rem 0 .6rem; }
+
+@media (hover: hover) { .flip-card:hover .flip-inner { transform: rotateY(180deg); } }
+.flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+
+/* ผู้ใช้ที่ปิดแอนิเมชันในระบบ: ไม่เลื่อนเอง แต่เลื่อนด้วยมือได้ */
+@media (prefers-reduced-motion: reduce) {
+  .marquee { overflow-x: auto; }
+  .marquee-track { animation: none; }
+  .flip-inner { transition: none; }
+}
+
+/* =====================================================
+   [12] รูปจริงของไพ่และดอกไม้
+   ===================================================== */
+/* ไพ่ The Fool ใหญ่ในหน้าแรก (ขนาดปรับที่ width) */
+.hero-card-img {
+  width: min(280px, 80%); height: auto;
+  transform: rotate(3deg);
+  filter: drop-shadow(0 1.5rem 2rem rgba(0,0,0,.55));
+  transition: transform .5s cubic-bezier(.175,.885,.32,1.275);
+}
+a:hover > .hero-card-img { transform: rotate(0deg) scale(1.04); }
+/* ไพ่จริงซ้อนมุมขวาล่างของรูปดอกไม้ ในหน้ารายละเอียด */
+.detail-card-img {
+  position: absolute; right: -1.2rem; bottom: -1.2rem; width: 46%; height: auto;
+  transform: rotate(4deg); filter: drop-shadow(0 .8rem 1.2rem rgba(0,0,0,.5));
+}
+/* ตัวเลขโรมันบนรูปจริง ให้อ่านออกทั้งพื้นสว่าง/เข้ม */
+.art-num { text-shadow: 0 1px 8px rgba(0,0,0,.55); }
+@media (prefers-reduced-motion: reduce) { .hero-card-img { transition: none; } }
+
+/* =====================================================
+   [10] หน้าย่อย (story / collection / detail / about)
+   ===================================================== */
+.navbar-arcana .nav-link.active { color: var(--gold) !important; } /* เมนูของหน้าที่เปิดอยู่ */
+.text-gold { color: var(--gold); }
+
+/* แบนเนอร์หัวหน้า: ปรับ padding ถ้าอยากให้สูง/เตี้ยลง */
+.page-hero {
+  background-color: var(--night);
+  background-image: radial-gradient(ellipse at 80% 20%, rgba(163,32,61,.3), transparent 60%);
+  padding: 4.5rem 0 3.5rem;
+}
+.back-link { color: var(--gold); text-decoration: none; font-size: .9rem; }
+.back-link:hover { color: #fff; }
+
+/* ปุ่มกรองในหน้าคอลเลกชัน */
+.filter-btn {
+  background: transparent; color: #efe8f5; border: 1px solid rgba(212,162,76,.6);
+  border-radius: 999px; padding: .4rem 1.2rem; transition: all .3s ease;
+}
+.filter-btn:hover, .filter-btn.active { background: var(--gold); color: var(--night); border-color: var(--gold); }
+
+/* หน้ารายละเอียด */
+.detail-art { max-width: 300px; box-shadow: 0 1.5rem 3rem rgba(0,0,0,.5); border-radius: 14px; border: 2px solid var(--gold); }
+.chip { border: 1px solid var(--gold); color: var(--gold); border-radius: 999px; padding: .25rem .9rem; font-size: .85rem; }
+.meaning { background: #fff; border-left: 3px solid var(--gold); border-radius: 0 10px 10px 0; padding: 1.5rem; box-shadow: 0 .25rem 1rem rgba(30,27,46,.08); }
+.meaning.why { background: var(--night); color: #efe8f5; }
+.meaning.why h3 { color: var(--gold); }
+
+/* หน้าเรื่องราว (เส้นเวลา) */
+.tl { position: relative; max-width: 760px; margin: 0 auto; }
+.tl::before { content: ''; position: absolute; left: 28px; top: 0; bottom: 0; width: 2px; background: var(--gold); opacity: .5; }
+.tl-item { position: relative; padding-left: 90px; margin-bottom: 3rem; }
+.tl-dot {
+  position: absolute; left: 0; top: 0; width: 58px; height: 58px; border-radius: 50%;
+  background: var(--night); color: var(--gold); border: 2px solid var(--gold);
+  display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+}
+.tl-body a { color: var(--rose); }
+
+/* หน้าเกี่ยวกับ */
+.about-art { max-width: 280px; border-radius: 14px; border: 2px solid var(--gold); }
+
+/* =====================================================
+   [11] ธีมมินิมอล (สีน้อย เส้นบาง มุมโค้งเล็ก)
+   ===================================================== */
+.font-display, .brand-text { font-family: 'Cormorant Garamond', 'Prompt', serif; }
+.font-display { font-weight: 500; }
+.brand-text { font-weight: 700; }
+
+/* พื้นหลังเรียบ ไม่มีแสงไล่สี */
+.hero { background-image: radial-gradient(ellipse at 75% 40%, rgba(163,32,61,.4), transparent 60%); }
+.page-hero { background-image: radial-gradient(ellipse at 80% 20%, rgba(163,32,61,.3), transparent 60%); }
+.hero { position: relative; overflow: hidden; }
+.tarot-card { background: var(--night-soft); border-radius: 12px; transform: none; box-shadow: 0 1rem 2rem rgba(0,0,0,.35); }
+
+/* การ์ด: มุมโค้งเล็ก เส้นบาง ไม่เอียง */
+.card-hover { border-radius: 10px; }
+.card-hover:hover { transform: translateY(-6px); box-shadow: 0 .8rem 2rem rgba(30,27,46,.15) !important; }
+.detail-art, .about-art { border-radius: 10px; border-width: 1px; }
+.pair { border: 1px solid rgba(212,162,76,.4); border-radius: 10px; }
+.meaning { border: 1px solid rgba(30,27,46,.12); border-radius: 10px; box-shadow: none; }
+.meaning.why { border-color: var(--gold); }
+.chip { background: none; }
+.tl-body a { color: var(--rose); }
+.filters-light .filter-btn { color: var(--night); border-color: rgba(30,27,46,.3); }
+.filters-light .filter-btn:hover, .filters-light .filter-btn.active { background: var(--night); color: #fff; border-color: var(--night); }
+
+/* ===== แถบไพ่เลื่อนอัตโนมัติ (หน้าคอลเลกชัน) =====
+   ความเร็ว: แก้ 45s (ตัวเลขมาก = ช้าลง) | ขนาดไพ่: แก้ width/height ของ .flip */
+.marquee { overflow: hidden; padding: 1.5rem 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.marquee-track { display: flex; width: max-content; animation: marquee 45s linear infinite; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+.marquee:hover .marquee-track,
+.marquee:has(.flipped) .marquee-track,
+.marquee:focus-within .marquee-track { animation-play-state: paused; }
+
+.flip { width: 190px; height: 300px; margin-right: 22px; flex: none; perspective: 900px; cursor: pointer; }
+.flip-inner { position: relative; width: 100%; height: 100%; transition: transform .7s cubic-bezier(.4,.2,.2,1); transform-style: preserve-3d; }
+.flip:hover .flip-inner, .flip:focus-visible .flip-inner, .flip.flipped .flip-inner { transform: rotateY(180deg); }
+.face { position: absolute; inset: 0; border-radius: 10px; overflow: hidden; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.face.front .card-art { height: 100%; aspect-ratio: auto; }
+.flip-name { position: absolute; left: 0; right: 0; bottom: 0; padding: 1.4rem .5rem .7rem; text-align: center; color: #fff; line-height: 1.2;
+  background: linear-gradient(transparent, rgba(30,27,46,.8)); }
+.flip-name small { display: block; font-family: 'Prompt', sans-serif; font-size: .75rem; opacity: .85; }
+.face.back { transform: rotateY(180deg); background: var(--night-soft); color: #efe8f5; border: 1px solid var(--gold);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 1rem; gap: .35rem; }
+.face.back h5 { margin: 0; color: #fff; }
+.flip-more { color: var(--gold); font-size: .85rem; margin-top: .6rem; text-decoration: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee { overflow-x: auto; }
+  .marquee-track { animation: none; }
+}
+
+/* =====================================================
+   [12] ดอกไม้ร่วง + ดาวระยิบ + ดาวตก (สร้างจาก script.js หัวข้อ [D])
+   ความจาง: แก้ opacity | ความเร็วตก: สุ่มใน script.js
+   ===================================================== */
+.drift { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
+
+/* ดอกไม้ร่วง: ร่วงลง + แกว่ง + หมุนช้าๆ */
+.drift-item { position: absolute; top: -60px; opacity: .4; animation: drift-fall linear infinite; }
+.drift-item svg { width: 100%; height: 100%; animation: drift-sway ease-in-out infinite alternate; }
+@keyframes drift-fall { to { transform: translateY(calc(100vh + 120px)); } }
+@keyframes drift-sway { from { transform: translateX(-30px) rotate(-40deg); } to { transform: translateX(30px) rotate(40deg); } }
+
+/* ดาวระยิบระยับ: กะพริบ (ขนาด+ความโปร่งใส) และลอยขึ้นลงเบาๆ */
+.star { position: absolute; opacity: .15; animation: twinkle ease-in-out infinite; }
+.star svg { width: 100%; height: 100%; filter: drop-shadow(0 0 4px currentColor); animation: star-float ease-in-out infinite alternate; }
+@keyframes twinkle { 0%, 100% { opacity: .12; transform: scale(.5); } 50% { opacity: .85; transform: scale(1.1); } }
+@keyframes star-float { from { transform: translateY(-10px) rotate(0deg); } to { transform: translateY(10px) rotate(45deg); } }
+
+/* ดาวตก: หัวสว่างหางจาง พาดเฉียงลงซ้าย */
+.shooting { position: absolute; width: 130px; height: 2px; opacity: 0; transform-origin: right center;
+  background: linear-gradient(270deg, transparent, rgba(212,162,76,.95)); border-radius: 2px;
+  box-shadow: 0 0 8px 1px rgba(212,162,76,.6); animation: shoot 1.3s ease-out forwards; }
+@keyframes shoot {
+  0%   { opacity: 0; transform: rotate(-35deg) translateX(0); }
+  15%  { opacity: 1; }
+  100% { opacity: 0; transform: rotate(-35deg) translateX(-420px); }
+}
+
+/* =====================================================
+   หน้ารายละเอียด: ดอกไม้ + ไพ่ทาโรต์ใบจริงเคียงกัน
+   ===================================================== */
+.detail-pair { display: flex; align-items: center; gap: 1rem; max-width: 460px; margin: 0 auto; }
+.detail-pair .detail-art { flex: 1 1 56%; min-width: 0; max-width: none; margin: 0 !important; }
+.detail-tarot { flex: 1 1 40%; min-width: 0; height: auto; border-radius: 10px; box-shadow: 0 1.5rem 3rem rgba(0,0,0,.5);
+  transform: rotate(3deg); transition: transform .4s ease; }
+.detail-tarot:hover { transform: rotate(0deg) scale(1.04); }
+
+/* =====================================================
+   หน้าเรื่องราว: ไพ่ตัวอย่าง (หน้า = ดอกไม้, หลัง = ไพ่ทาโรต์)
+   ขนาด: แก้ width ของ .pair (สัดส่วนเท่ารูปไพ่ 320x573)
+   ===================================================== */
+.pair { width: 170px; aspect-ratio: 320 / 573; perspective: 900px; cursor: pointer; float: right; margin: 0 0 1rem 1.5rem; }
+.pair-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .8s cubic-bezier(.4,.2,.2,1); }
+.pair-face { position: absolute; inset: 0; border-radius: 10px; overflow: hidden; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  box-shadow: 0 .75rem 1.75rem rgba(30,27,46,.25); }
+.pair-front { border: 2px solid var(--gold); }
+.pair-front .card-art { height: 100%; aspect-ratio: auto; }
+.pair-back { transform: rotateY(180deg); background: #fff; }
+.pair-back img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pair-blank { background: linear-gradient(170deg, var(--night-soft), var(--night)); color: #efe8f5; border: 2px solid var(--gold);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .4rem; padding: 1rem .6rem; text-align: center; }
+.pair-blank h5 { margin: 0; color: #fff; font-size: 1.1rem; }
+.pair-blank .chip { font-size: .7rem; padding: .1rem .55rem; }
+@media (hover: hover) { .pair:hover .pair-inner { transform: rotateY(180deg); } }
+.pair.flipped .pair-inner, .pair:focus-visible .pair-inner { transform: rotateY(180deg); }
+.tl-body::after { content: ''; display: block; clear: both; }
+@media (max-width: 575.98px) { .pair { float: none; margin: 0 auto 1rem; } }
+@media (prefers-reduced-motion: reduce) { .pair-inner { transition: none; } .detail-tarot { transition: none; } }
